@@ -1,0 +1,56 @@
+
+#define sound_Speed  0.034
+#define cm 0.393794
+// #define Serial Serial0
+
+const int trigPin = 32;
+const int echoPin = 33;
+
+
+long duration;
+float distance;
+float dim;
+
+void setup() {
+  // put your setup code here, to run once:
+  Serial.begin(115200);
+  // Serial.println("Hello, ESP32!");
+  pinMode(trigPin, OUTPUT);
+  pinMode(echoPin, INPUT);
+
+}
+
+void loop() {
+  digitalWrite(trigPin, LOW);    // Initilize No Signal
+  delayMicroseconds(200);
+
+  digitalWrite(trigPin, HIGH);   // Signal Transmit
+  delayMicroseconds(10);
+
+  digitalWrite(trigPin, LOW);
+
+
+
+  duration = pulseIn(echoPin,HIGH);   // Signal Received
+
+  Serial.print("The Distance between the object and sensor : ");
+  Serial.println(duration);
+  delay(5000);
+
+  distance = duration * sound_Speed/2;
+  dim = distance * cm ;
+
+  Serial.println("Distance in CentiMeter : ");
+  Serial.println(distance);
+
+  delay(500);
+
+  Serial.print("Distance in Meter : ");
+  Serial.println(dim);
+
+  delay(500);
+}
+
+
+
+// Code BY WhiteSoulX
